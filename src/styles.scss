@@ -1,1 +1,235 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --color-light: #f5f5fa;
+  --color-black: #1b1d2a;
+  --color-grey: #e1e1e2;
+  --color-light-blue: #5175fb;
+  --color-red: #e14a4a;
+  --layout-margin: 0 10px 25px 10px;
+  --default-shadow: rgba(110, 110, 110, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+  box-sizing: inherit;
+  position: relative;
+  background-color: var(--color-light);
+  padding: 50px;
+}
+
+.main {
+  background: #fff;
+  box-shadow: 0 15px 10px var(--default-shadow);
+  height: calc(100vh - 100px);
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns:
+    [layout-start] minmax(120px, 1fr) [center-start] repeat(
+      12,
+      minmax(min-content, 95px)
+    )
+    [center-end] minmax(120px, 1fr) [layout-end];
+  grid-template-rows: 120px 1fr;
+  grid-row-gap: 50px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.header {
+  grid-row: 1 / 2;
+  grid-column: center-start / center-end;
+  display: grid;
+  grid-template-columns: 150px 1fr 200px;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.questionnaire {
+  grid-row: 2 / -1;
+  grid-column: center-start / center-end;
+  display: flex;
+  flex-direction: column;
+
+  .question {
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    grid-row-gap: 15px;
+
+    &__heading {
+      font-size: 40px;
+      justify-self: center;
+    }
+    &__q {
+      justify-self: center;
+    }
+
+    &__answers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+      .answer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 15px;
+        background-color: #fff;
+        border: 2px solid #e3e3e3;
+        color: var(--color-black);
+        height: 250px;
+        cursor: pointer;
+        border-radius: 15px;
+        transition: all 0.3s ease-out;
+      }
+
+      .answer.selected {
+        background-color: var(--color-light-blue);
+        color: #fff;
+      }
+    }
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+
+    button.previous {
+      background: #fff;
+      padding: 5px 8px;
+      outline: none;
+      border-radius: 9px;
+      border: 1px solid #e3e3e3;
+      cursor: pointer;
+
+      .icon-back {
+        width: 30px;
+        height: 30px;
+        fill: #506ef9;
+      }
+    }
+
+    button.next {
+      margin-left: 15px;
+      background: #506ef9;
+      color: #fff;
+      padding: 5px 90px;
+      outline: none;
+      border-radius: 9px;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.progress {
+  &__bar {
+    margin: 40px 0;
+    height: 20px;
+    background: #f6f6fa;
+    overflow: hidden;
+    border-radius: 10px;
+    width: 400px;
+    align-self: center;
+
+    &--slider {
+      height: inherit;
+      width: 0%;
+      background: #506ef9;
+      border-radius: 10px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    align-self: center;
+    color: #bababa;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+
+    .p-actions-left {
+      span:nth-child(2) {
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
+.question {
+}
+
+.logo {
+  grid-column: 1 / 2;
+  h2 {
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+}
+
+.search {
+  grid-column: 3 / -1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .search-icon {
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+
+    .icon {
+      border: 2px solid var(--color-grey);
+      border-radius: 50%;
+      padding: 5px;
+    }
+  }
+
+  .call {
+    background: #fff;
+    outline: 0;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    border: 2px solid var(--color-grey);
+    border-radius: 20px;
+  }
+}
+
+.menu {
+  grid-column: 2 / 3;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, min-content));
+  justify-content: center;
+
+  &__link,
+  &__linl:link,
+  &__link:active {
+    text-transform: uppercase;
+    font-size: 15px;
+    padding-top: 5px;
+  }
+
+  &__link.active {
+    border-top: 2px solid var(--color-light-blue);
+    font-weight: 600;
+  }
+}
