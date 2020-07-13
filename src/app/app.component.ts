@@ -15,11 +15,10 @@ import { questionsList } from './helpers/questionsList';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  currentQuestionIndex = 0;
-
   @ViewChild('slider', { static: true }) slider: ElementRef<HTMLDivElement>;
-  @ViewChild('answers', { static: true }) answers: ElementRef<HTMLDivElement>;
-  @ViewChild('anss', { static: true }) anss: ElementRef<HTMLDivElement>;
+  @ViewChild('questionContainer', { static: true })
+  questionContainer: ElementRef<HTMLDivElement>;
+  @ViewChild('answer', { static: true }) answer: ElementRef<HTMLDivElement>;
   @ViewChild('menu', { static: true }) menu: ElementRef<HTMLDivElement>;
   @ViewChild('logo', { static: true }) logo: ElementRef<HTMLDivElement>;
   @ViewChild('search', { static: true }) search: ElementRef<HTMLDivElement>;
@@ -27,6 +26,7 @@ export class AppComponent implements OnInit {
   @ViewChild('actions', { static: true }) actions: ElementRef<HTMLDivElement>;
   @ViewChild('progress', { static: true }) progress: ElementRef<HTMLDivElement>;
 
+  currentQuestionIndex = 0;
   progressValue: number;
   questions = questionsList;
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
       opacity: 0,
       y: -20,
     });
-    gsap.from(this.answers.nativeElement.childNodes, {
+    gsap.from(this.questionContainer.nativeElement.childNodes, {
       delay: 0.5,
       duration: 0.4,
       opacity: 0,
@@ -106,18 +106,18 @@ export class AppComponent implements OnInit {
     return this.questions[this.currentQuestionIndex];
   }
 
-  onSelect(ans: HTMLDivElement) {
-    this.anss.nativeElement.childNodes.forEach((node: HTMLDivElement) => {
+  onSelect(answer: HTMLDivElement) {
+    this.answer.nativeElement.childNodes.forEach((node: HTMLDivElement) => {
       if (node.classList && node.classList.contains('selected')) {
         node.classList.remove('selected');
       }
     });
-    ans.classList.add('selected');
+    answer.classList.add('selected');
   }
 
   prev() {
     if (this.currentQuestionIndex > 0) {
-      gsap.to(this.answers.nativeElement.childNodes, {
+      gsap.to(this.questionContainer.nativeElement.childNodes, {
         duration: 0.4,
         opacity: 0,
         y: -20,
@@ -127,7 +127,7 @@ export class AppComponent implements OnInit {
             this.currentQuestionIndex--;
             this.increaseProgressValue();
             this.cdr.detectChanges();
-            gsap.to(this.answers.nativeElement.childNodes, {
+            gsap.to(this.questionContainer.nativeElement.childNodes, {
               duration: 0.4,
               opacity: 1,
               y: 0,
@@ -141,7 +141,7 @@ export class AppComponent implements OnInit {
 
   goToNextQuestion(): void {
     if (this.currentQuestionIndex < this.questions.length - 1) {
-      gsap.to(this.answers.nativeElement.childNodes, {
+      gsap.to(this.questionContainer.nativeElement.childNodes, {
         duration: 0.4,
         opacity: 0,
         y: -20,
@@ -150,7 +150,7 @@ export class AppComponent implements OnInit {
           this.currentQuestionIndex++;
           this.increaseProgressValue();
           this.cdr.detectChanges();
-          gsap.to(this.answers.nativeElement.childNodes, {
+          gsap.to(this.questionContainer.nativeElement.childNodes, {
             duration: 0.4,
             opacity: 1,
             y: 0,

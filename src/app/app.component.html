@@ -20,10 +20,10 @@
     </div>
   </div>
   <div class="questionnaire">
-    <div class="question" #answers>
+    <div class="question" #questionContainer>
       <h2 class="question__heading">Question {{ currentQuestionIndex + 1 }}</h2>
       <div class="question__q">{{ question?.questionText }}</div>
-      <div class="question__answers" #anss>
+      <div class="question__answers" #answer>
         <div
           class="answer"
           *ngFor="let answer of question.options"
